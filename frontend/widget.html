@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buddy the Bear Widget</title>
+    <link rel="stylesheet" href="widget.css" />
+  </head>
+  <body>
+    <div id="buddy-widget" class="buddy-widget" aria-live="polite">
+      <button
+        id="buddy-launcher"
+        class="buddy-launcher"
+        aria-controls="buddy-panel"
+        aria-expanded="false"
+        aria-label="Open Buddy the Bear chat"
+        type="button"
+      >
+        <span class="launcher-icon" aria-hidden="true">🐻</span>
+        <span class="launcher-text">Buddy</span>
+        <span class="launcher-pulse" aria-hidden="true"></span>
+      </button>
+
+      <div
+        id="buddy-teaser"
+        class="buddy-teaser"
+        role="status"
+        aria-live="polite"
+        aria-hidden="true"
+      ></div>
+
+      <section
+        id="buddy-panel"
+        class="buddy-panel"
+        aria-hidden="true"
+        aria-label="Buddy the Bear conversational assistant"
+      >
+        <header class="buddy-panel__header">
+          <div class="buddy-identity">
+            <span class="buddy-avatar" aria-hidden="true">🐻</span>
+            <div>
+              <p class="buddy-name">Buddy the Bear</p>
+              <p class="buddy-tagline">Toy &amp; gift expert</p>
+            </div>
+          </div>
+          <div class="buddy-controls">
+            <button
+              type="button"
+              id="buddy-minimize"
+              class="control-btn"
+              aria-label="Minimize chat"
+            >
+              &minus;
+            </button>
+            <button
+              type="button"
+              id="buddy-close"
+              class="control-btn"
+              aria-label="Close chat"
+            >
+              &times;
+            </button>
+          </div>
+        </header>
+
+        <div
+          id="chat-window"
+          class="buddy-panel__body"
+          role="log"
+          aria-live="polite"
+          aria-relevant="additions"
+        ></div>
+
+        <form id="chat-form" class="buddy-panel__form">
+          <label class="visually-hidden" for="chat-input">
+            Ask Buddy for the perfect gift
+          </label>
+          <input
+            type="text"
+            id="chat-input"
+            placeholder="Ask Buddy for the perfect gift..."
+            autocomplete="off"
+            aria-label="Message Buddy the Bear"
+          />
+          <button type="submit" class="send-btn">Send</button>
+        </form>
+      </section>
+    </div>
+    <script>
+      // Backend API endpoint configuration
+      window.BUDDY_WIDGET_CONFIG = {
+        apiUrl: "http://127.0.0.1:8000/chat"
+      };
+    </script>
+    <script src="widget.js"></script>
+  </body>
+</html>
+
+

@@ -1,0 +1,421 @@
+:root {
+  --buddy-gold: #ddcb64;
+  --buddy-purple: #90cac6;
+  --buddy-blue: #91ceed;
+  --buddy-black: #111111;
+  --buddy-white: #ffffff;
+  --buddy-panel-shadow: 0 25px 60px rgba(17, 17, 17, 0.2);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", "Inter", system-ui, -apple-system, sans-serif;
+  background: #f8fafc;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* Ultra-high specificity to beat WordPress theme CSS */
+#buddy-widget#buddy-widget.buddy-widget.buddy-widget {
+  position: fixed;
+  right: 24px;
+  bottom: 80px;
+  z-index: 999999;
+  font-size: 16px;
+}
+
+.buddy-launcher {
+  position: relative;
+  border: none;
+  border-radius: 999px;
+  padding: 12px 22px;
+  background: var(--buddy-gold);
+  color: var(--buddy-black);
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: 0 18px 30px rgba(221, 203, 100, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.buddy-launcher:focus-visible {
+  outline: 3px solid rgba(145, 206, 237, 0.7);
+  outline-offset: 4px;
+}
+
+.buddy-launcher:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 22px 35px rgba(221, 203, 100, 0.4);
+}
+
+.launcher-icon {
+  font-size: 1.2rem;
+}
+
+.launcher-pulse {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid rgba(221, 203, 100, 0.45);
+  animation: buddyPulse 2.6s infinite;
+  pointer-events: none;
+}
+
+@keyframes buddyPulse {
+  0% {
+    opacity: 0.7;
+    transform: scale(0.9);
+  }
+  70% {
+    opacity: 0;
+    transform: scale(1.4);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.buddy-teaser {
+  position: absolute;
+  right: 0;
+  bottom: 70px;
+  background: var(--buddy-white);
+  border-radius: 16px;
+  padding: 10px 14px;
+  font-size: 0.9rem;
+  color: var(--buddy-black);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  max-width: 260px;
+  line-height: 1.3;
+}
+
+.buddy-teaser.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.buddy-panel {
+  position: absolute;
+  bottom: 80px;
+  right: 0;
+  width: min(360px, calc(100vw - 32px));
+  height: 520px;
+  background: var(--buddy-white);
+  border-radius: 24px;
+  box-shadow: var(--buddy-panel-shadow);
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transform: translateY(20px) scale(0.96);
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  border: 2px solid rgba(144, 202, 198, 0.25);
+}
+
+.buddy-panel.is-open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.buddy-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 18px;
+  background: linear-gradient(135deg, var(--buddy-gold), var(--buddy-blue));
+  color: var(--buddy-white);
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+}
+
+.buddy-identity {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* High specificity container for Buddy avatar */
+.buddy-widget#buddy-widget .buddy-avatar.buddy-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0;
+  overflow: hidden;
+}
+
+.buddy-avatar img,
+.launcher-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.buddy-name {
+  font-weight: 700;
+  margin: 0;
+  font-size: 1rem;
+}
+
+.buddy-tagline {
+  margin: 0;
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+
+.buddy-controls {
+  display: flex;
+  gap: 6px;
+}
+
+.control-btn {
+  border: none;
+  background: rgba(255, 255, 255, 0.25);
+  color: var(--buddy-white);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.2s ease;
+}
+
+.control-btn:hover {
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.buddy-panel__body {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+  background: #fdfdfd;
+}
+
+.chat-bubble {
+  margin-bottom: 12px;
+  padding: 12px 16px;
+  border-radius: 18px;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  word-break: break-word;
+}
+
+.chat-bubble.user {
+  background: var(--buddy-blue);
+  color: var(--buddy-white);
+  margin-left: auto;
+  max-width: 80%;
+}
+
+.chat-bubble.assistant {
+  background: #fff7d6;
+  color: var(--buddy-black);
+  margin-right: auto;
+  max-width: 90%;
+  line-height: 1.6;
+  white-space: pre-line;
+}
+
+.product-card {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 14px;
+  background: #fffef8;
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.08);
+}
+
+.product-card img {
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
+
+.product-card h4 {
+  margin: 0 0 6px;
+  font-size: 1rem;
+  color: var(--buddy-black);
+}
+
+.product-price {
+  margin: 0 0 10px;
+  color: var(--buddy-purple);
+  font-weight: 600;
+}
+
+.product-card a {
+  text-decoration: none;
+  font-weight: 600;
+  color: var(--buddy-blue);
+}
+
+.buddy-panel__form {
+  display: flex;
+  gap: 8px;
+  padding: 14px 16px 18px;
+  background: #f4f6fb;
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
+}
+
+#chat-input {
+  flex: 1;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 999px;
+  padding: 10px 16px;
+  font-size: 0.95rem;
+}
+
+#chat-input:focus-visible {
+  outline: 2px solid var(--buddy-blue);
+}
+
+.send-btn {
+  background: var(--buddy-purple);
+  color: var(--buddy-white);
+  border: none;
+  border-radius: 999px;
+  padding: 10px 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.send-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.send-btn:not(:disabled):hover {
+  background: #6aafa9;
+}
+
+/* Thinking Indicator Animation */
+.buddy-thinking {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: #f8f9fa;
+  border-radius: 16px;
+  margin: 8px 0;
+  max-width: 80%;
+}
+
+.buddy-thinking .thinking-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--buddy-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.buddy-thinking .thinking-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.buddy-thinking .thinking-dots {
+  display: flex;
+  gap: 4px;
+}
+
+.buddy-thinking .thinking-dots span {
+  width: 8px;
+  height: 8px;
+  background: var(--buddy-purple);
+  border-radius: 50%;
+  animation: thinking-bounce 1.4s infinite ease-in-out;
+}
+
+.buddy-thinking .thinking-dots span:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.buddy-thinking .thinking-dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.buddy-thinking .thinking-dots span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+.buddy-thinking .thinking-text {
+  font-size: 0.9rem;
+  color: #666;
+  font-style: italic;
+}
+
+@keyframes thinking-bounce {
+  0%, 80%, 100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+  40% {
+    transform: translateY(-6px);
+    opacity: 1;
+  }
+}
+
+/* Fade in animation for messages */
+.message-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 600px) {
+  /* High specificity for mobile positioning */
+  #buddy-widget#buddy-widget.buddy-widget.buddy-widget {
+    right: 12px;
+    bottom: 102px;
+  }
+
+  .buddy-panel {
+    width: min(100vw - 24px, 340px);
+    height: min(80vh, 500px);
+  }
+}
+
